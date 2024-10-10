@@ -1,5 +1,8 @@
 package model;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class ToyShop {
@@ -21,6 +24,12 @@ public class ToyShop {
         int index = random.nextInt(list.size());
         Toy selectedToy = list.get(index);
         System.out.println("Случайно выбранная игрушка: " + selectedToy);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("selected_toy.txt", true))) {
+            writer.write("Выбранная игрушка: " + selectedToy);
+            writer.newLine(); // Переход на новую строку
+        } catch (IOException e) {
+            System.out.println("Ошибка при записи в файл: " + e.getMessage());
+        }
     }
 
     public void addToy (Toy toy) {
